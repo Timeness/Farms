@@ -27,12 +27,13 @@
 
     .container {
       position: relative;
-      text-align: center;
+      display: inline-block;
     }
 
     img {
       max-width: 100%;
       height: auto;
+      display: block;
       pointer-events: none;
     }
 
@@ -44,6 +45,8 @@
       color: white;
       font-weight: 600;
       font-size: 2rem;
+      white-space: nowrap;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
   </style>
 </head>
@@ -53,4 +56,4 @@
     <div class="center-text">PAGE NOT FOUND</div>
   </div>
 </body>
-  </html>
+</html>
