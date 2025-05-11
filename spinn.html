@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+  <title>Center Spin Image</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    img {
+      width: 200px;
+      height: 200px;
+      animation: spin 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://i.ibb.co/xSm3QTnB/360-F-511966846-j-CWKk-Rot-Kw-Xh-AHB8s-IQwm0vx-Wgn-MBn-My-1.jpg" alt="Spinning Image">
+  </div>
+</body>
+</html>
