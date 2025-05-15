@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexus Music</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- CDN Imports (50 total) -->
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        viga: ['Viga', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        glass: 'rgba(20, 20, 20, 0.6)',
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 2. Google Fonts (Viga) -->
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+    
+    <!-- 3. Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
+    <!-- 4. Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- 5. AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- 6. Toastify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- 7. Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 8. Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- 9. Shimmer CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+    
+    <!-- 10. GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    
+    <!-- 11-20: Additional Animation/UX Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.6.1/dist/simpleParallax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.net.min.js"></script>
+    
+    <!-- 21-30: Utility Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.1/js/emoji-picker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/5.0.1/autosize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+    
+    <!-- 31-40: UI Components -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.4.5/swiper-bundle.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.7/tippy-bundle.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.7/tippy.min.css">
+    
+    <!-- 41-50: More Utilities -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ua-parser-js/1.0.2/ua-parser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/device-detector-js/2.2.2/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bowser/2.11.0/bundled.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/store.js/2.0.12/store.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        @media (min-width: 768px) {
+            body::before {
+                content: "This app is designed for mobile devices only. Please open on a smartphone.";
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #000;
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                padding: 2rem;
+                text-align: center;
+                z-index: 9999;
+                font-family: 'Viga', sans-serif;
+            }
+        }
+        
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Viga', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior: none;
+        }
+        
+        .glass-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .song-card {
+            transition: all 0.3s ease;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .play-btn {
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .song-card:hover .play-btn {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .now-playing-bar {
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .progress-bar {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #f87171, #60a5fa);
+            transition: width 0.1s linear;
+        }
+        
+        .rotate {
+            animation: rotation 10s infinite linear;
+        }
+        
+        @keyframes rotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(359deg); }
+        }
+        
+        .paused {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Desktop Restriction Message (hidden on mobile) -->
+    <div class="md:hidden">
+        <!-- Header -->
+        <header class="bg-black bg-opacity-90 py-4 px-6 sticky top-0 z-50 border-b border-gray-800">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-white">NEXUS MUSIC</h1>
+                <button id="searchToggle" class="text-white">
+                    <iconify-icon icon="mdi:magnify" width="24"></iconify-icon>
+                </button>
+            </div>
+            
+            <!-- Search Bar -->
+            <div id="searchContainer" class="mt-4 hidden">
+                <div class="relative">
+                    <input 
+                        id="searchInput" 
+                        type="text" 
+                        placeholder="Search songs, artists..." 
+                        class="w-full bg-gray-900 text-white px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        autocomplete="off"
+                    >
+                    <button id="searchButton" class="absolute right-3 top-3 text-gray-400">
+                        <iconify-icon icon="mdi:magnify" width="20"></iconify-icon>
+                    </button>
+                </div>
+                <div id="searchHistory" class="mt-2 hidden">
+                    <div class="text-xs text-gray-400 mb-1">Recent Searches</div>
+                    <div id="historyItems" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="flex-1 pb-24">
+            <!-- Hero Section -->
+            <section id="heroSection" class="px-6 py-8">
+                <h2 class="text-lg font-semibold mb-4">Welcome Back</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card rounded-xl p-4 flex items-center">
+                        <div class="bg-purple-500 rounded-lg w-12 h-12 flex items-center justify-center mr-3">
+                            <iconify-icon icon="mdi:music" width="24"></iconify-icon>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Your Library</div>
+                            <div class="text-xs text-gray-400">50 songs</div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-4 flex items-center">
+                        <div class="bg-blue-500 rounded-lg w-12 h-12 flex items-center justify-center mr-3">
+                            <iconify-icon icon="mdi:heart" width="24"></iconify-icon>
+                        </div>
+                        <div>
+                            <div class="text-sm font-medium">Favorites</div>
+                            <div class="text-xs text-gray-400">23 songs</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Trending Section -->
+            <section id="trendingSection" class="px-6 py-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Trending Now</h2>
+                    <button class="text-xs text-gray-400">See All</button>
+                </div>
+                <div id="trendingSongs" class="flex overflow-x-auto gap-4 pb-2 -mx-6 px-6">
+                    <!-- Placeholder for trending songs -->
+                    <div class="shimmer rounded-xl w-32 h-40 flex-shrink-0"></div>
+                    <div class="shimmer rounded-xl w-32 h-40 flex-shrink-0"></div>
+                    <div class="shimmer rounded-xl w-32 h-40 flex-shrink-0"></div>
+                    <div class="shimmer rounded-xl w-32 h-40 flex-shrink-0"></div>
+                </div>
+            </section>
+            
+            <!-- Recently Played -->
+            <section id="recentSection" class="px-6 py-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Recently Played</h2>
+                    <button class="text-xs text-gray-400">See All</button>
+                </div>
+                <div id="recentSongs" class="space-y-3">
+                    <!-- Placeholder for recent songs -->
+                    <div class="shimmer h-16 rounded-lg"></div>
+                    <div class="shimmer h-16 rounded-lg"></div>
+                    <div class="shimmer h-16 rounded-lg"></div>
+                </div>
+            </section>
+            
+            <!-- Search Results -->
+            <section id="searchResults" class="px-6 py-4 hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Search Results</h2>
+                    <button id="clearSearch" class="text-xs text-gray-400">Clear</button>
+                </div>
+                <div id="resultsContainer" class="space-y-3">
+                    <!-- Results will be populated here -->
+                </div>
+                <div id="loadingIndicator" class="hidden py-8 flex justify-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Now Playing Bar -->
+        <div id="nowPlayingBar" class="fixed bottom-0 left-0 right-0 bg-gray-900 bg-opacity-95 border-t border-gray-800 p-3 hidden">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div id="nowPlayingArt" class="w-10 h-10 bg-gray-700 rounded-sm"></div>
+                    <div>
+                        <div id="nowPlayingTitle" class="text-sm font-medium truncate w-32">Song Title</div>
+                        <div id="nowPlayingArtist" class="text-xs text-gray-400 truncate w-32">Artist</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="playPauseBtn" class="text-white">
+                        <iconify-icon icon="mdi:play" width="24"></iconify-icon>
+                    </button>
+                    <button id="nextBtn" class="text-gray-400">
+                        <iconify-icon icon="mdi:skip-next" width="24"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="progress-bar mt-2 rounded-full">
+                <div id="progress" class="progress rounded-full" style="width: 30%"></div>
+            </div>
+        </div>
+        
+        <!-- Audio Element -->
+        <audio id="audioPlayer" preload="none"></audio>
+    </div>
+    
+    <script>
+        // Service Worker Registration for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+        
+        // DOM Elements
+        const searchToggle = document.getElementById('searchToggle');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchResults = document.getElementById('searchResults');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const searchHistory = document.getElementById('searchHistory');
+        const historyItems = document.getElementById('historyItems');
+        const clearSearch = document.getElementById('clearSearch');
+        const nowPlayingBar = document.getElementById('nowPlayingBar');
+        const nowPlayingArt = document.getElementById('nowPlayingArt');
+        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const progress = document.getElementById('progress');
+        
+        // App State
+        let currentSong = null;
+        let currentSongIndex = 0;
+        let searchResultsList = [];
+        let isPlaying = false;
+        let progressInterval;
+        
+        // Initialize AOS animations
+        AOS.init({
+            duration: 600,
+            easing: 'ease-out-sine',
+            once: true,
+            offset: 10
+        });
+        
+        // Initialize Hammer.js for touch gestures
+        const hammer = new Hammer(document.body);
+        hammer.on('swipeleft', () => {
+            if (nowPlayingBar.style.display !== 'none') {
+                playNextSong();
+            }
+        });
+        hammer.on('swiperight', () => {
+            if (nowPlayingBar.style.display !== 'none') {
+                playPreviousSong();
+            }
+        });
+        
+        // Event Listeners
+        searchToggle.addEventListener('click', toggleSearch);
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        clearSearch.addEventListener('click', clearSearchResults);
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        nextBtn.addEventListener('click', playNextSong);
+        
+        audioPlayer.addEventListener('play', () => {
+            isPlaying = true;
+            playPauseBtn.innerHTML = '<iconify-icon icon="mdi:pause" width="24"></iconify-icon>';
+            startProgressTracking();
+        });
+        
+        audioPlayer.addEventListener('pause', () => {
+            isPlaying = false;
+            playPauseBtn.innerHTML = '<iconify-icon icon="mdi:play" width="24"></iconify-icon>';
+            stopProgressTracking();
+        });
+        
+        audioPlayer.addEventListener('ended', playNextSong);
+        
+        // Load initial data
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTrendingSongs();
+            loadRecentSongs();
+            loadSearchHistory();
+            
+            // Check if there's a currently playing song in localStorage
+            const savedSong = localStorage.getItem('currentSong');
+            if (savedSong) {
+                currentSong = JSON.parse(savedSong);
+                updateNowPlayingBar(currentSong);
+                nowPlayingBar.classList.remove('hidden');
+            }
+        });
+        
+        // Functions
+        function toggleSearch() {
+            searchContainer.classList.toggle('hidden');
+            searchResults.classList.add('hidden');
+            
+            if (!searchContainer.classList.contains('hidden')) {
+                searchInput.focus();
+                if (localStorage.getItem('searchHistory')) {
+                    searchHistory.classList.remove('hidden');
+                }
+            } else {
+                searchHistory.classList.add('hidden');
+            }
+        }
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+            
+            // Add to search history
+            addToSearchHistory(query);
+            
+            // Show loading state
+            resultsContainer.innerHTML = '';
+            searchResults.classList.remove('hidden');
+            loadingIndicator.classList.remove('hidden');
+            
+            // Hide other sections
+            document.getElementById('heroSection').classList.add('hidden');
+            document.getElementById('trendingSection').classList.add('hidden');
+            document.getElementById('recentSection').classList.add('hidden');
+            
+            // Fetch from JioSaavn API
+            fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    loadingIndicator.classList.add('hidden');
+                    
+                    if (data.data && data.data.results && data.data.results.length > 0) {
+                        searchResultsList = data.data.results;
+                        displaySearchResults(searchResultsList);
+                    } else {
+                        resultsContainer.innerHTML = `
+                            <div class="text-center py-8 text-gray-400">
+                                <iconify-icon icon="mdi:music-off" width="48"></iconify-icon>
+                                <p class="mt-2">No results found</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    loadingIndicator.classList.add('hidden');
+                    showToast('Failed to fetch results. Please try again.');
+                    console.error('Error:', error);
+                });
+        }
+        
+        function displaySearchResults(results) {
+            resultsContainer.innerHTML = '';
+            
+            results.forEach((song, index) => {
+                const songElement = document.createElement('div');
+                songElement.className = 'song-card glass-card rounded-lg p-3 flex items-center relative overflow-hidden';
+                songElement.setAttribute('data-aos', 'fade-up');
+                songElement.setAttribute('data-aos-delay', index * 50);
+                
+                songElement.innerHTML = `
+                    <img 
+                        src="${song.image[1].link || song.image[0].link}" 
+                        alt="${song.title}" 
+                        class="w-12 h-12 rounded-md object-cover mr-3"
+                        onerror="this.src='https://via.placeholder.com/150'"
+                    >
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-medium truncate">${song.title}</h3>
+                        <p class="text-xs text-gray-400 truncate">${song.primaryArtists || 'Unknown Artist'}</p>
+                    </div>
+                    <button class="play-btn absolute right-3 bg-purple-600 hover:bg-purple-700 rounded-full p-2" 
+                            data-index="${index}">
+                        <iconify-icon icon="mdi:play" width="20"></iconify-icon>
+                    </button>
+                `;
+                
+                resultsContainer.appendChild(songElement);
+                
+                // Add click event to play song
+                const playBtn = songElement.querySelector('.play-btn');
+                playBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    playSong(index);
+                });
+                
+                // Whole card click also plays song
+                songElement.addEventListener('click', () => {
+                    playSong(index);
+                });
+            });
+        }
+        
+        function playSong(index) {
+            if (index < 0 || index >= searchResultsList.length) return;
+            
+            const song = searchResultsList[index];
+            currentSong = {
+                title: song.title,
+                artist: song.primaryArtists || 'Unknown Artist',
+                image: song.image[1].link || song.image[0].link,
+                url: song.downloadUrl[4].link || song.downloadUrl[3].link || song.downloadUrl[2].link,
+                index: index
+            };
+            
+            currentSongIndex = index;
+            
+            // Save to localStorage
+            localStorage.setItem('currentSong', JSON.stringify(currentSong));
+            
+            // Update UI
+            updateNowPlayingBar(currentSong);
+            nowPlayingBar.classList.remove('hidden');
+            
+            // Play audio
+            audioPlayer.src = currentSong.url;
+            audioPlayer.play()
+                .then(() => {
+                    // Add to recently played
+                    addToRecentlyPlayed(currentSong);
+                })
+                .catch(error => {
+                    showToast('Failed to play song. Please try again.');
+                    console.error('Playback error:', error);
+                });
+        }
+        
+        function updateNowPlayingBar(song) {
+            nowPlayingTitle.textContent = song.title;
+            nowPlayingArtist.textContent = song.artist;
+            
+            // Update album art with rotation animation
+            nowPlayingArt.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = song.image;
+            img.className = 'w-full h-full object-cover rounded-sm';
+            img.onerror = () => {
+                img.src = 'https://via.placeholder.com/150';
+            };
+            nowPlayingArt.appendChild(img);
+            
+            // Apply rotation class if playing
+            if (isPlaying) {
+                nowPlayingArt.classList.add('rotate');
+            } else {
+                nowPlayingArt.classList.remove('rotate');
+            }
+        }
+        
+        function togglePlayPause() {
+            if (!currentSong) return;
+            
+            if (isPlaying) {
+                audioPlayer.pause();
+            } else {
+                audioPlayer.play();
+            }
+        }
+        
+        function playNextSong() {
+            if (searchResultsList.length === 0) return;
+            
+            const nextIndex = (currentSongIndex + 1) % searchResultsList.length;
+            playSong(nextIndex);
+        }
+        
+        function playPreviousSong() {
+            if (searchResultsList.length === 0) return;
+            
+            const prevIndex = (currentSongIndex - 1 + searchResultsList.length) % searchResultsList.length;
+            playSong(prevIndex);
+        }
+        
+        function startProgressTracking() {
+            stopProgressTracking();
+            progressInterval = setInterval(() => {
+                if (audioPlayer.duration) {
+                    const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    progress.style.width = `${percent}%`;
+                }
+            }, 100);
+        }
+        
+        function stopProgressTracking() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+            }
+        }
+        
+        function clearSearchResults() {
+            searchInput.value = '';
+            searchResults.classList.add('hidden');
+            
+            // Show other sections again
+            document.getElementById('heroSection').classList.remove('hidden');
+            document.getElementById('trendingSection').classList.remove('hidden');
+            document.getElementById('recentSection').classList.remove('hidden');
+        }
+        
+        function addToSearchHistory(query) {
+            let history = localStorage.getItem('searchHistory');
+            history = history ? JSON.parse(history) : [];
+            
+            // Remove if already exists
+            history = history.filter(item => item.toLowerCase() !== query.toLowerCase());
+            
+            // Add to beginning
+            history.unshift(query);
+            
+            // Keep only last 5 items
+            if (history.length > 5) {
+                history = history.slice(0, 5);
+            }
+            
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            loadSearchHistory();
+        }
+        
+        function loadSearchHistory() {
+            const history = localStorage.getItem('searchHistory');
+            if (!history) return;
+            
+            const items = JSON.parse(history);
+            historyItems.innerHTML = '';
+            
+            items.forEach(item => {
+                const chip = document.createElement('div');
+                chip.className = 'bg-gray-800 text-white text-xs px-3 py-1 rounded-full cursor-pointer hover:bg-gray-700';
+                chip.textContent = item;
+                chip.addEventListener('click', () => {
+                    searchInput.value = item;
+                    performSearch();
+                });
+                historyItems.appendChild(chip);
+            });
+            
+            if (items.length > 0) {
+                searchHistory.classList.remove('hidden');
+            }
+        }
+        
+        function addToRecentlyPlayed(song) {
+            let recent = localStorage.getItem('recentlyPlayed');
+            recent = recent ? JSON.parse(recent) : [];
+            
+            // Remove if already exists
+            recent = recent.filter(item => item.title !== song.title);
+            
+            // Add to beginning
+            recent.unshift({
+                title: song.title,
+                artist: song.artist,
+                image: song.image
+            });
+            
+            // Keep only last 10 items
+            if (recent.length > 10) {
+                recent = recent.slice(0, 10);
+            }
+            
+            localStorage.setItem('recentlyPlayed', JSON.stringify(recent));
+            loadRecentSongs();
+        }
+        
+        function loadRecentSongs() {
+            const recentContainer = document.getElementById('recentSongs');
+            const recent = localStorage.getItem('recentlyPlayed');
+            
+            if (!recent || JSON.parse(recent).length === 0) {
+                recentContainer.innerHTML = `
+                    <div class="text-center py-4 text-gray-400">
+                        <p>No recently played songs</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const songs = JSON.parse(recent);
+            recentContainer.innerHTML = '';
+            
+            songs.forEach((song, index) => {
+                const songElement = document.createElement('div');
+                songElement.className = 'glass-card rounded-lg p-3 flex items-center cursor-pointer';
+                songElement.setAttribute('data-aos', 'fade-up');
+                songElement.setAttribute('data-aos-delay', index * 50);
+                
+                songElement.innerHTML = `
+                    <img 
+                        src="${song.image}" 
+                        alt="${song.title}" 
+                        class="w-12 h-12 rounded-md object-cover mr-3"
+                        onerror="this.src='https://via.placeholder.com/150'"
+                    >
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-sm font-medium truncate">${song.title}</h3>
+                        <p class="text-xs text-gray-400 truncate">${song.artist}</p>
+                    </div>
+                    <iconify-icon icon="mdi:chevron-right" width="20" class="text-gray-400"></iconify-icon>
+                `;
+                
+                songElement.addEventListener('click', () => {
+                    // Search for this song and play it
+                    searchInput.value = `${song.title} ${song.artist}`;
+                    performSearch();
+                });
+                
+                recentContainer.appendChild(songElement);
+            });
+        }
+        
+        function loadTrendingSongs() {
+            // This would ideally come from an API, but we'll simulate it
+            const trendingContainer = document.getElementById('trendingSongs');
+            
+            // Simulate loading
+            setTimeout(() => {
+                trendingContainer.innerHTML = '';
+                
+                // Mock trending songs (in a real app, this would come from an API)
+                const mockTrending = [
+                    {
+                        title: "Popular Song 1",
+                        artist: "Top Artist",
+                        image: "https://c.saavncdn.com/534/Radhe-Shyam-Telugu-2022-20220105024529-500x500.jpg"
+                    },
+                    {
+                        title: "Hit Song 2023",
+                        artist: "Famous Singer",
+                        image: "https://c.saavncdn.com/238/Sita-Ramam-Telugu-2022-20220805173603-500x500.jpg"
+                    },
+                    {
+                        title: "Viral Track",
+                        artist: "Internet Sensation",
+                        image: "https://c.saavncdn.com/238/Pushpa-The-Rise-Part-1-Telugu-2021-20211207173622-500x500.jpg"
+                    },
+                    {
+                        title: "Chart Topper",
+                        artist: "Award Winner",
+                        image: "https://c.saavncdn.com/238/RRR-Telugu-2022-20220324173342-500x500.jpg"
+                    }
+                ];
+                
+                mockTrending.forEach((song, index) => {
+                    const songElement = document.createElement('div');
+                    songElement.className = 'flex-shrink-0 w-32';
+                    songElement.setAttribute('data-aos', 'fade-up');
+                    songElement.setAttribute('data-aos-delay', index * 100);
+                    
+                    songElement.innerHTML = `
+                        <div class="relative">
+                            <img 
+                                src="${song.image}" 
+                                alt="${song.title}" 
+                                class="w-full h-32 rounded-xl object-cover"
+                                onerror="this.src='https://via.placeholder.com/150'"
+                            >
+                            <button class="absolute bottom-2 right-2 bg-purple-600 hover:bg-purple-700 rounded-full p-2">
+                                <iconify-icon icon="mdi:play" width="16"></iconify-icon>
+                            </button>
+                        </div>
+                        <h3 class="text-xs font-medium mt-2 truncate">${song.title}</h3>
+                        <p class="text-xs text-gray-400 truncate">${song.artist}</p>
+                    `;
+                    
+                    songElement.addEventListener('click', () => {
+                        // In a real app, this would play the song
+                        showToast(`Playing: ${song.title}`);
+                    });
+                    
+                    trendingContainer.appendChild(songElement);
+                });
+            }, 1000);
+        }
+        
+        function showToast(message) {
+            Toastify({
+                text: message,
+                duration: 3000,
+                gravity: "bottom",
+                position: "center",
+                backgroundColor: "rgba(30, 30, 30, 0.9)",
+                stopOnFocus: true
+            }).showToast();
+        }
+        
+        // Initialize FastClick for better touch response
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    
+    <!-- PWA Manifest -->
+    <script>
+        const manifest = {
+            "name": "Nexus Music",
+            "short_name": "Nexus",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#050505",
+            "theme_color": "#7c3aed",
+            "description": "Ultimate mobile music streaming experience",
+            "icons": [
+                {
+                    "src": "https://via.placeholder.com/192x192.png/7c3aed/ffffff?text=N",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                },
+                {
+                    "src": "https://via.placeholder.com/512x512.png/7c3aed/ffffff?text=N",
+                    "sizes": "512x512",
+                    "type": "image/png"
+                }
+            ]
+        };
+        
+        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(blob);
+        document.querySelector('link[rel="manifest"]').href = manifestURL;
+    </script>
+    
+    <!-- Service Worker (simplified) -->
+    <script>
+        const swContent = `
+            const CACHE_NAME = 'nexus-music-v1';
+            const ASSETS = [
+                '/',
+                '/index.html',
+                'https://cdn.tailwindcss.com',
+                'https://fonts.googleapis.com/css2?family=Viga&display=swap',
+                'https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js'
+            ];
+            
+            self.addEventListener('install', (event) => {
+                event.waitUntil(
+                    caches.open(CACHE_NAME)
+                        .then((cache) => cache.addAll(ASSETS))
+                );
+            });
+            
+            self.addEventListener('fetch', (event) => {
+                event.respondWith(
+                    caches.match(event.request)
+                        .then((response) => response || fetch(event.request))
+                );
+            });
+        `;
+        
+        const blobSW = new Blob([swContent], {type: 'application/javascript'});
+        const swURL = URL.createObjectURL(blobSW);
+        
+        // This would be in a separate sw.js file in a real app
+        navigator.serviceWorker.register(swURL)
+            .then(registration => console.log('SW registered'))
+            .catch(err => console.log('SW registration failed'));
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=SreyanshuKun/aimusic" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
