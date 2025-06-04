@@ -1,7 +1,7 @@
 self.addEventListener("install", e => {
   e.waitUntil(
     caches.open("vyntra-cache").then(cache => {
-      return cache.addAll(["/", "/csindex.html", "/favicon.png"]);
+      return cache.addAll(["/", "/psoon.html", "/favicon.png"]);
     })
   );
 });
