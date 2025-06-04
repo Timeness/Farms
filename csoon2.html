@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vyntra — The Sound of Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+    .glow-text {
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    .pulse {
+      animation: pulseGlow 3s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 10px #0ff; }
+      50% { text-shadow: 0 0 25px #00f0ff; }
+    }
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #0ff;
+      opacity: 0.3;
+      animation: particle-fly 10s linear infinite;
+    }
+    @keyframes particle-fly {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="relative text-white">
+
+  <!-- Particles -->
+  <div class="absolute top-0 left-0 w-full h-full -z-10">
+    <div class="particle" style="left:10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left:30%; animation-delay: 2s;"></div>
+    <div class="particle" style="left:50%; animation-delay: 4s;"></div>
+    <div class="particle" style="left:70%; animation-delay: 6s;"></div>
+    <div class="particle" style="left:90%; animation-delay: 8s;"></div>
+  </div>
+
+  <!-- Centered Logo & Text -->
+  <div class="flex flex-col items-center justify-center h-screen text-center px-4">
+    <h1 class="text-5xl md:text-7xl font-bold glow-text floating">Vyntra</h1>
+    <p class="mt-4 text-cyan-400 text-sm md:text-lg pulse">The Sound of Intelligence</p>
+
+    <!-- Iconify AI Icon -->
+    <div class="mt-8 animate-spin-slow">
+      <iconify-icon icon="ph:brain-bold" style="color: #00f0ff;" width="48" height="48"></iconify-icon>
+    </div>
+  </div>
+
+</body>
+</html>
